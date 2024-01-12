@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DogWalker.Domain.Dogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace DogWalker.Domain.Customers
 
         public string? zipcode { get; set; }
 
-        
+        public ICollection<Dog> Dogs { get;  } = new List<Dog>();
 
 
     }
