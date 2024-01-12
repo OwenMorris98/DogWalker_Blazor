@@ -1,0 +1,85 @@
+﻿@page "/"
+
+
+<PageTitle>Home</PageTitle>
+
+<div class="home-screen-background">
+    <div class="text-center">
+
+        <main role="main">
+
+            <section class="jumbotron text-center">
+                <div class="container">
+                    <h1 class="jumbotron-heading">Top Tier Dog Walking</h1>
+                    <p class="lead text-muted">Going on vacation? Just going away for the night? Need someone to take care of your walking feces dispenser? Schedule a walk</p>
+                 
+                        <p>
+                            <a class="btn btn-primary my-2" asp-area="Identity" asp-page="/Account/Register">Sign up</a>
+                            <a class="btn btn-secondary my-2" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                        </p>
+                    
+                </div>
+            </section>
+
+            <div class="album py-5 bg-light">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img id="create-dogs-landing" class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="/img/dogs-group.jpg" data-holder-rendered="true">
+                                <div class="card-body">
+                                    <p class="card-text">Add dogs to your account for easy access to schedule walks. Povide notes for your walker so you know that your fur babies are getting so much love</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            @* @Html.ActionLink("View", "Create", "Dogs", null, new { @class = "btn btn-sm btn-outline-secondary" }) *@
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img id="schedule-landing" class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="/img/walking.jpg" data-holder-rendered="true">
+                                <div class="card-body">
+                                    <p class="card-text">Schedule a walk with a certified dog walker for any time of day, length of time, or even a full stay. For FREE!</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                           @*  @Html.ActionLink("View", "MyDogs", "Dogs", null, new { @class = "btn btn-sm btn-outline-secondary" }) *@
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img id="ai-landing" class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="/img/computerbrain.jpg" data-holder-rendered="true">
+                                <div class="card-body">
+                                    <p class="card-text">Coming soon will be AI features that can help with virtual vet questions, learning centers for your dog breeds, and so much more.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+
+
+
+    </div>
+</div>

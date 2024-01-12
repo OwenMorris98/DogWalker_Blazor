@@ -1,0 +1,150 @@
+﻿@page "/Account/Manage"
+
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@using DogWalker_Blazor.Data
+@using DogWalker.Application.Customers;
+@using DogWalker.Domain.Customers;
+
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject IdentityUserAccessor UserAccessor
+@inject IdentityRedirectManager RedirectManager
+@inject ICustomerService CustomerService
+
+
+<PageTitle>Profile</PageTitle>
+
+<h3>Profile</h3>
+<StatusMessage />
+
+<div class="row">
+    <div class="col-md-6">
+        <EditForm Model="Input" FormName="profile" OnValidSubmit="OnValidSubmitAsync" method="post">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert" />
+            <div class="form-floating mb-3">
+                <input type="text" value="@username" class="form-control" placeholder="Please choose your username." disabled />
+                <label for="username" class="form-label">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number." />
+                <label for="phone-number" class="form-label">Phone number</label>
+                <ValidationMessage For="() => Input.PhoneNumber" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.first_name" class="form-control" placeholder="Please enter your first name." />
+                <label for="firt_name" class="form-label">First Name</label>
+                <ValidationMessage For="() => Input.first_name" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.last_name" class="form-control" placeholder="Please enter your last name." />
+                <label for="last_name" class="form-label">Last Name</label>
+                <ValidationMessage For="() => Input.last_name" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.address" class="form-control" placeholder="Please enter your address." />
+                <label for="address" class="form-label">Address</label>
+                <ValidationMessage For="() => Input.address" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.city" class="form-control" placeholder="Please enter your city." />
+                <label for="phone-number" class="form-label">City</label>
+                <ValidationMessage For="() => Input.city" class="text-danger" />
+            </div>
+              <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.state" class="form-control" placeholder="Please enter state." />
+                <label for="phone-number" class="form-label">State</label>
+                <ValidationMessage For="() => Input.state" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.zipcode" class="form-control" placeholder="Please enter your zip code." />
+                <label for="phone-number" class="form-label">Zip Code</label>
+                <ValidationMessage For="() => Input.zipcode" class="text-danger" />
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private ApplicationUser user = default!;
+    private string? username;
+    private string? phoneNumber;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    private Customer customer { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await UserAccessor.GetRequiredUserAsync(HttpContext);
+        username = await UserManager.GetUserNameAsync(user);
+        phoneNumber = await UserManager.GetPhoneNumberAsync(user);
+        
+
+        Input.PhoneNumber ??= phoneNumber;
+    }
+
+    private async Task OnValidSubmitAsync()
+    {
+        if (Input.PhoneNumber != phoneNumber)
+        {
+            var setPhoneResult = await UserManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+            if (!setPhoneResult.Succeeded)
+            {
+                RedirectManager.RedirectToCurrentPageWithStatus("Error: Failed to set phone number.", HttpContext);
+            }
+
+
+        }
+        Customer cust = new Customer()
+            {
+                Id = user.Id,
+                first_name = Input.first_name,
+                last_name = Input.last_name,
+                address = Input.address,
+                city = Input.city,
+                state = Input.state,
+                zipcode = Input.zipcode
+            };
+
+        await CustomerService.addCustomerData(cust);
+
+        await SignInManager.RefreshSignInAsync(user);
+        RedirectManager.RedirectToCurrentPageWithStatus("Your profile has been updated", HttpContext);
+    }
+
+    private sealed class InputModel
+    {
+        [Phone]
+        [Display(Name = "Phone number")]
+        public string? PhoneNumber { get; set; }
+
+        [Display(Name = "First Name")]
+        public string? first_name { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string? last_name { get; set; }
+
+        
+        [Display(Name = "Address")]
+        public string? address { get; set; }
+
+        [Display(Name = "City")]
+        public string? city { get; set; }
+
+        [Display(Name = "State")]
+        public string? state { get; set; }
+
+      
+        [Display(Name = "Zip")]
+        public string? zipcode { get; set; }
+
+
+    }
+}
