@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogWalker_Blazor", "DogWalker_Blazor\DogWalker_Blazor.csproj", "{030D35D8-0251-4E18-B1A0-6C8C59DF815F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogWalker_Blazor", "DogWalker_Blazor\DogWalker_Blazor.csproj", "{030D35D8-0251-4E18-B1A0-6C8C59DF815F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogWalker.Infrastructure", "DogWalker.Infrastructure\DogWalker.Infrastructure.csproj", "{CA07CDA8-B30D-4FA7-8281-39E34402CF11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogWalker.Infrastructure", "DogWalker.Infrastructure\DogWalker.Infrastructure.csproj", "{CA07CDA8-B30D-4FA7-8281-39E34402CF11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogWalker.Domain", "DogWalker.Domain\DogWalker.Domain.csproj", "{941C89C6-C964-4232-A527-33354CF83C6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogWalker.Domain", "DogWalker.Domain\DogWalker.Domain.csproj", "{941C89C6-C964-4232-A527-33354CF83C6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogWalker.Application", "Application\DogWalker.Application.csproj", "{519187C1-8F94-4BD5-8980-2063B7778EA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogWalker.Application", "Application\DogWalker.Application.csproj", "{519187C1-8F94-4BD5-8980-2063B7778EA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
