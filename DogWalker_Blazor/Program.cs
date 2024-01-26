@@ -11,6 +11,8 @@ using DogWalker.Application.Dogs;
 using DogWalker.Infrastructure.Dogs;
 using DogWalker.Application.Customers;
 using DogWalker.Infrastructure.Customers;
+using DogWalker.Infrastructure.Services;
+using DogWalker.Infrastructure.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,9 @@ builder.Services.AddTransient<IDogRepository, DogRepository>();
 builder.Services.AddScoped<IDogService, DogService>();
 builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddPersistence(builder.Configuration);
 

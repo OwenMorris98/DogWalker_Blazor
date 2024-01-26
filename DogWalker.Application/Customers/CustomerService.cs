@@ -10,6 +10,7 @@ namespace DogWalker.Application.Customers
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
+
         public CustomerService(ICustomerRepository customerRepository) 
        {
          _customerRepository = customerRepository;
@@ -25,17 +26,10 @@ namespace DogWalker.Application.Customers
         {
 
             this._customerRepository.addCustomerData(cust);
-            await this._customerRepository.SaveAsync();
+            
         }
 
-        public void Save()
-        {
-            this._customerRepository.Save();
-        }
+        
 
-        public Task SaveAsync()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

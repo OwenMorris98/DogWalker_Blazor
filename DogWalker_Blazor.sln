@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogWalker.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogWalker.Domain", "DogWalker.Domain\DogWalker.Domain.csproj", "{941C89C6-C964-4232-A527-33354CF83C6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogWalker.Application", "Application\DogWalker.Application.csproj", "{519187C1-8F94-4BD5-8980-2063B7778EA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogWalker.Application", "DogWalker.Application\DogWalker.Application.csproj", "{2C51C8E6-4CE0-4DF2-BBE1-BC03C34E5598}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{941C89C6-C964-4232-A527-33354CF83C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{941C89C6-C964-4232-A527-33354CF83C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{941C89C6-C964-4232-A527-33354CF83C6B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{519187C1-8F94-4BD5-8980-2063B7778EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{519187C1-8F94-4BD5-8980-2063B7778EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{519187C1-8F94-4BD5-8980-2063B7778EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{519187C1-8F94-4BD5-8980-2063B7778EA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C51C8E6-4CE0-4DF2-BBE1-BC03C34E5598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C51C8E6-4CE0-4DF2-BBE1-BC03C34E5598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C51C8E6-4CE0-4DF2-BBE1-BC03C34E5598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C51C8E6-4CE0-4DF2-BBE1-BC03C34E5598}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

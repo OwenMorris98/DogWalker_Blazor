@@ -9,6 +9,13 @@ namespace DogWalker.Application.Dogs
 {
     public interface IDogRepository
     {
-        List<Dog> GetDogs();
+        Task<IEnumerable<Dog>> GetDogs();
+        Task<bool> AddDogAsync(Dog dog);
+        bool AddDog(Dog dog);
+        bool RemoveDog(Dog dog);
+        bool UpdateDog(Dog dog);
+        Task<Dog> GetDogById(string id);
+        Task<IEnumerable<Dog>> GetDogsByCustomerId(string customerId);
+
     }
 }

@@ -1,5 +1,169 @@
-﻿<h3>DogForm</h3>
+﻿@inject IDogService _dogService
+@page "/dog-form/"
+@page "/dog-form/{Id}"
+
+@rendermode InteractiveServer
+@attribute [StreamRendering(true)]
+@inject IHttpContextAccessor _contextAccessor;
+@inject UserManager<ApplicationUser> userManager
+@inject IDogService dogService;
+@inject IUnitOfWork unitOfWork;
+@inject NavigationManager navigationManager
+
+
+@if(Id is null)
+{
+    <PageTitle>Add a Dog</PageTitle>
+    <h3>Add a new Dog</h3>
+
+    <div class="row">
+    <div class="col-md-4">
+        < method="post" @onsubmit="Create" @formname="CreateDogForm" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label class="control-label">Dog Name</label>
+                <input @bind="AddDog.Name" class="form-control" />
+                <span asp-validation-for="AddDog.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Breed</label>
+                <input @bind="AddDog.Breed" class="form-control" />
+                    <span asp-validation-for="AddDog.Breed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Age</label>
+                <input @bind="AddDog.Age" class="form-control" />
+                <span asp-validation-for="AddDog.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Notes</label>
+                <input @bind="AddDog.Notes" class="form-control" />
+                <span asp-validation-for="AddDog.Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </>
+         </div>
+         </div>
+}
+else if(CurrentDog != null)
+{
+    <PageTitle>Update a Dog</PageTitle>
+    <h3>Update Dog</h3>
+
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm OnSubmit="EditDog" Model="CurrentDog">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label class="control-label">Dog Name</label>
+                    <input @bind-value="CurrentDog.Name" class="form-control" />
+                    <span asp-validation-for="CurrentDog.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Breed</label>
+                    <input @bind-value="CurrentDog.Breed" class="form-control" />
+                    <span asp-validation-for="CurrentDog.Breed" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Age</label>
+                    <input @bind-value="CurrentDog.Age" class="form-control" />
+                    <span asp-validation-for="CurrentDog.Age" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Notes</label>
+                    <input @bind-value="CurrentDog.Notes" class="form-control" />
+                    <span asp-validation-for="CurrentDog.Notes" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+
+               
+            </EditForm>
+
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading..</p>
+}
+
 
 @code {
+    [Parameter]
+    public string? Id { get; set; }
+
+    public Customer customer { get; set; } = new();
+
+    public Dog CurrentDog { get; set; } 
+
+    public Dog AddDog { get; set; } = new();
+
+    public string dogAdded { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if(!String.IsNullOrEmpty(Id))
+        {
+            var dog = await _dogService.GetDogById(Id);
+            if(dog is not null)
+            {
+                CurrentDog = dog;
+            }
+        }
+        else
+        {
+            var user = await userManager.GetUserAsync(_contextAccessor.HttpContext.User);
+
+            if (user != null)
+            {
+
+                customer.Id = user.Id;           
+            }
+        }
+
+    }
+
+    public async Task Create()
+    {
+        AddDog.Id = Guid.NewGuid().ToString();
+        AddDog.customer_id = customer.Id;
+
+        bool didAddDog = dogService.AddDog(AddDog);
+
+
+        if(didAddDog)
+        {
+            dogAdded = "Dog has been created";
+            unitOfWork.Save();
+        }
+        else
+        {
+            dogAdded = "Problem adding dog";
+        }
+        navigationManager.NavigateTo("/dog-list");
+    }
+
+    public async Task EditDog()
+    {
+        bool didDogUpdate = dogService.UpdateDog(CurrentDog);
+
+        if(didDogUpdate)
+        {
+            dogAdded = "Dog has been updated";
+            unitOfWork.Save();
+        } 
+        else
+        {
+            dogAdded = "Problem editing dog";
+        }
+        navigationManager.NavigateTo("/dog-list");
+    }
 
 }

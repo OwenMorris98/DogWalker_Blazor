@@ -11,6 +11,7 @@
 @inject IdentityUserAccessor UserAccessor
 @inject IdentityRedirectManager RedirectManager
 @inject ICustomerService CustomerService
+@inject IUnitOfWork unitOfWork
 
 
 <PageTitle>Profile</PageTitle>
@@ -85,7 +86,7 @@
         user = await UserAccessor.GetRequiredUserAsync(HttpContext);
         username = await UserManager.GetUserNameAsync(user);
         phoneNumber = await UserManager.GetPhoneNumberAsync(user);
-        
+
 
         Input.PhoneNumber ??= phoneNumber;
     }
@@ -114,6 +115,7 @@
             };
 
         await CustomerService.addCustomerData(cust);
+        await unitOfWork.SaveAsync();
 
         await SignInManager.RefreshSignInAsync(user);
         RedirectManager.RedirectToCurrentPageWithStatus("Your profile has been updated", HttpContext);

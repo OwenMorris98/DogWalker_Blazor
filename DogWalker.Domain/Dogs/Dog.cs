@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace DogWalker.Domain.Dogs
         public string? Notes { get; set; }
 
         public string customer_id { get; set; }
+
+        [ForeignKey(nameof(customer_id))]
         public Customer Customer { get; set; }
 
     

@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\DogWalker.Application.csproj" />
+    <ProjectReference Include="..\DogWalker.Application\DogWalker.Application.csproj" />
     <ProjectReference Include="..\DogWalker.Domain\DogWalker.Domain.csproj" />
   </ItemGroup>
 

@@ -12,8 +12,6 @@ namespace DogWalker.Application.Customers
 
         Task addCustomerData(Customer customer);
 
-        void Save();
-
-        Task SaveAsync();
+   
     }
 }

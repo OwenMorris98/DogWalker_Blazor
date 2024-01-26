@@ -1,0 +1,74 @@
+﻿
+@page "/dog-list"
+@using DogWalker_Blazor.Data
+@inject IHttpContextAccessor _contextAccessor;
+@inject UserManager<ApplicationUser> userManager
+@inject IDogService dogService;
+@inject IDogRepository dogRepository;
+@inject NavigationManager navigationManager;
+@attribute [StreamRendering(true)]
+@* //@rendermode @(new InteractiveServerRenderMode(prerender: true)) *@
+@rendermode InteractiveServer
+
+@if(dogs == null)
+{
+    <p>Loading...</p>
+}
+
+else if (!String.IsNullOrEmpty(Id))
+{
+    <p>Hello @userName </p>
+    
+    <button class="btn btn-primary" @onclick="CreateDog">Create Dog</button>
+    @if(dogs.Count() != 0)
+    {
+        @foreach(var dog in dogs)
+        {
+            <h3>Dogs:</h3>
+            <p>@dog.Name</p>
+            <p>@dog.Breed</p>
+            <p>@dog.Age</p>
+            <p>@dog.Notes</p>
+            <button @onclick="() => EditDog(dog.Id)">Edit</button>
+        }
+    }
+}
+
+
+
+@code {
+
+
+    [Parameter]
+    public string Id { get; set; }
+
+    public string userName { get; set; }
+
+    IEnumerable<Dog> dogs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await userManager.GetUserAsync(_contextAccessor.HttpContext.User);
+
+        if(user != null)
+        {
+            Id = user.Id;
+            userName = user.UserName;
+
+            dogs = await dogService.GetDogsByCustomerId(Id);
+        }
+
+    }
+
+    void EditDog(string id)
+    {
+        navigationManager.NavigateTo($"/dog-form/{id}");
+    }
+
+    void CreateDog()
+    {
+        navigationManager.NavigateTo($"/dog-form");
+    }
+
+
+}

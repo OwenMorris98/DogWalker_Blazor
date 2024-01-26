@@ -35,14 +35,6 @@ namespace DogWalker.Infrastructure.Customers
             return await _context.Customers.FindAsync(id);
         }
 
-        public void Save()
-        {
-            _context.Save();
-        }
-
-        public async Task SaveAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
+      
     }
 }

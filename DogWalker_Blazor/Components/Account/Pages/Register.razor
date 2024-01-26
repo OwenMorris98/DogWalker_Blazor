@@ -17,6 +17,7 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 @inject ICustomerService _customerService
+@inject IUnitOfWork unitOfWork
 
 
 <PageTitle>Register</PageTitle>
@@ -91,7 +92,7 @@
         var userId = await UserManager.GetUserIdAsync(user);
 
         _customerService.addCustomer(userId.ToString());
-        _customerService.Save();
+        unitOfWork.Save();
 
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
